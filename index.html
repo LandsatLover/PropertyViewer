@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco Home Real State Agency</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="style.css">
+    
+  
+</head>
+<body>
+    <div id="div2">
+        <div id="logo">
+            <img src="ecohome_logo.png" alt="Logo Inmobiliaria El Pato">
+        </div>
+        <div id="advanced-search">
+            <h2>Búsqueda Avanzada</h2>
+        </div>
+        <div class="panel-section">
+            <label for="tipo-inmueble">Tipo de Inmueble</label>
+            <select id="tipo-inmueble">
+                <option value="Todos">Todos</option>
+                <option value="Piso">Piso</option>
+                <option value="Chalet">Chalet</option>
+                <option value="Adosado">Adosado</option>
+            </select>
+        </div>
+        <div class="panel-section">
+            <label for="precio-minimo">Precio Mínimo</label>
+            <input type="number" id="precio-minimo" placeholder="Precio Mínimo">
+            <label for="precio-maximo">Precio Máximo</label>
+            <input type="number" id="precio-maximo" placeholder="Precio Máximo">
+        </div>
+        <div class="panel-section">
+            <button id="reset-filters">Restablecer Filtros</button>
+        </div>
+    </div>
+    <div id="map"></div>
+
+    <!-- INSTALACIÓN DE JAVASCRIPT DE LEAFLET -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="./script.js"></script>
+    
+
+    <script>
+// Función para crear un icono personalizado para un solo marcador
+function createCustomIconMarker(feature) {
+    const price = feature.properties.precio;
+    return L.divIcon({
+        className: 'custom-div-icon',
+        html: `<div class='marker-pin'></div><div class='custom-marker'>${price}€</div>`,
+        iconSize: [30, 42],
+        iconAnchor: [15, 42]
+    });
+}
+
+// Inicializa la variable donde se guardarán los datos cargados
+let inmuebles_raw;
+let inmueblesLayer = null;
+
+// Carga la capa geojson en la variable inmuebles_raw
+fetch('./inmuebles.geojson')
+    .then(response => response.json())
+    .then(data => { 
+        inmuebles_raw = data; 
+        applyFilters(); 
+    });
+
+// Función para aplicar todos los filtros
+function applyFilters() {
+    const typeSelect = document.getElementById("tipo-inmueble").value; // Este comando lee el valor que hay dentro del cuadro del div con el id entre comillas
+    const minPriceInput = document.getElementById("precio-minimo").value;
+    const maxPriceInput = document.getElementById("precio-maximo").value;
+
+    const minPrice = minPriceInput ? parseFloat(minPriceInput) : 0;
+    const maxPrice = maxPriceInput ? parseFloat(maxPriceInput) : Infinity;
+
+    if (inmueblesLayer) {
+        map.removeLayer(inmueblesLayer);
+    }
+
+    inmueblesLayer = L.geoJSON(inmuebles_raw, {
+        filter: function(feature) {
+            const typeMatch = typeSelect === "Todos" || feature.properties.tipo_inm === typeSelect;
+            const price = feature.properties.precio;
+            const priceMatch = price >= minPrice && price <= maxPrice;
+            return typeMatch && priceMatch;
+        },
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, { icon: createCustomIconMarker(feature) });
+        },
+        onEachFeature: popupVivienda
+    }).addTo(map);
+}
+
+// Event Listeners para aplicar los filtros
+document.getElementById("tipo-inmueble").addEventListener("change", applyFilters);
+document.getElementById("precio-minimo").addEventListener("input", applyFilters);
+document.getElementById("precio-maximo").addEventListener("input", applyFilters);
+
+//PASO 2: CONFIGURAR EL CONTROLADOR DE CAPAS.
+
+var overlayMaps = {};  //El controlador de capas, si no hay capas de overlay, hay que declarar en blanco
+
+//Añadir el controlador de capas
+var layerControl = L.control.layers(baseMaps, overlayMaps, {
+    collapsed: false,  // Asegura que el control de capas no esté colapsado por defecto
+    position: 'bottomright'  // Posiciona el control de capas en la esquina inferior derecha
+}).addTo(map);
+
+//PASO 3: AÑADIR BARRA DE BUSCADOR DE DIRECCIONES
+// Configura y añade el control de Geocoder
+var geocoder = L.Control.geocoder({
+    collapsed: false,            // Si el control está colapsado por defecto (true/false)
+    expand: 'touch',             // Cómo se expande el control en dispositivos táctiles ('touch', 'click', 'hover', 'none')
+    position: 'topright',        // Posición del control en el mapa ('topleft', 'topright', 'bottomleft', 'bottomright')
+    placeholder: 'Buscar por dirección',  // Texto del marcador de posición en el cuadro de búsqueda
+    errorMessage: 'No encontrado.',
+    suggestMinLength: 1,
+    //defaultMarkGeocode: false
+}).addTo(map);
+
+
+
+
+
+    </script>
+</body>
+</html>

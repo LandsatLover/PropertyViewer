@@ -1,0 +1,205 @@
+
+body {
+    margin: 0;
+    display: flex;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+}
+
+#div2 {
+    width: auto;
+    height: 100vh;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.15);
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.panel-section {
+    margin-bottom: 20px;
+}
+
+.panel-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.panel-section select,
+.panel-section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #333;
+}
+
+.panel-section select:focus,
+.panel-section input:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+#map {
+    flex-grow: 1;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#applyFiltersButton {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#applyFiltersButton:hover {
+    background-color: #45a049;
+}
+
+.panel-section input::placeholder {
+    color: #999;
+}
+
+.panel-section select,
+.panel-section input {
+    background-color: #fff;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.panel-section label {
+    font-size: 14px;
+}
+
+.panel-section select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><path fill="%23999" d="M7 10l5-5H2z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 12px 12px;
+}
+#toggleFiltersButton {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    cursor: pointer;
+    z-index: 1000; /* Asegúrate de que el botón esté por encima del mapa */
+    transition: background-color 0.3s ease;
+}
+
+#toggleFiltersButton:hover {
+    background-color: #45a049;
+}
+
+#div2.hidden {
+    display: none;
+}
+
+.custom-div-icon {
+    background: transparent;
+    border: none;
+}
+
+.custom-marker {
+    width: 50px;
+    background-color: green;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top: 42px;
+    left: 50%;
+
+}
+.custom-marker:hover {
+    background-color: rgb(39, 209, 47);
+    color: white;
+    transform: scale(1.1);
+    transition: transform 0.1s ease;
+}
+
+#reset-filters {
+    width: 100%;
+    padding: 12px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+#reset-filters:hover {
+    background-color:rgb(39, 209, 47) ;
+    color: white;
+    transform: scale(1.1);
+    transition: transform 0.1s ease;
+}
+
+#advanced-search {
+    background-color: #fff;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    margin-top:50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #000;
+    text-align: center;
+}
+
+#advanced-search h2 {
+    margin: 0;
+    font-size: 18px; /* Tamaño de la fuente un poco más pequeño */
+    font-weight: bold;
+    color: #008000; /* Color verde para el texto */
+}
+
+#logo {
+    max-width: 300px; /* Ancho máximo permitido */
+    max-height: 100px; /* Alto máximo permitido */
+
+}
+
+#logo img {
+    width: 100%;
+    height: auto; /* Automáticamente ajusta la altura según el ancho para mantener la relación de aspecto */
+    max-width: 100%;
+    max-height: 100%; /* Establece el tamaño máximo de la imagen */
+    object-fit: contain; /* Ajusta la imagen dentro del contenedor manteniendo su relación de aspecto */
+    border: 1px solid #000;
+}
+
+.leaflet-control-geocoder {
+    width: 40vh; /* Ancho total del geocoder */
+    height: auto; /* Altura total del geocoder */
+    font-size: 14px; /* Tamaño de fuente */
+    background-color: #fff; /* Color de fondo */
+    border-radius: 25px; /* Borde redondeado */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Sombra más pronunciada */
+    padding: 10px; /* Espaciado interior */
+}
+
+
