@@ -1,8 +1,12 @@
 # 🌍 Eco Home - Real Estate Map Viewer
+![image](https://github.com/user-attachments/assets/e5d48083-f584-43bc-85e6-003c3d031b64)
+
 
 **Eco Home** is a fictional real estate map viewer inspired by Idealista, designed to showcase sustainable properties through an interactive map. This project allows users to explore and filter property data for residential real estate, focusing on simplicity and ease of use. This project includes Leaflet technology, which is useful to integrate cartography in web pages. Initially, the idea was to extract the data directly of the databases of some real estate agency who would apply this product, but this idea was not carried out due to the limited time available. So the data included is a fictional geojson file.
 
 Also, script.js provides useful Leaflet functions to agilize the basic operations, such as map starting.
+
+## 🎨 Preview
 
 Live view here -> https://landsatlover.github.io/PropertyViewer/
 
@@ -26,7 +30,6 @@ Live view here -> https://landsatlover.github.io/PropertyViewer/
    git clone https://github.com/LandsatLover/PropertyViewer.git
 2. Open `index.html` in your browser to view the map and start exploring properties.
 
-## 🎨 Preview
 
 ## 🔄 Future Updates
 I plan to add more features over time, including:
