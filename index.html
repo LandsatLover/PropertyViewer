@@ -62,7 +62,7 @@ let inmuebles_raw;
 let inmueblesLayer = null;
 
 // Carga la capa geojson en la variable inmuebles_raw
-fetch('./inmuebles.geojson')
+fetch('inmuebles.geojson')
     .then(response => response.json())
     .then(data => { 
         inmuebles_raw = data; 
